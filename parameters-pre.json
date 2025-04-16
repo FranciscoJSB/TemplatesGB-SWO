@@ -1,0 +1,1067 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "environment": {
+            "value": "pre"
+        },
+        "networkingRGName": {
+            "value": "rg-network-pre-eus-01"
+        },
+        "devopsAgentRGName": {
+            "value": "rg-utilvm-pre-eus"
+        },
+        "aiRGName": {
+            "value": "rg-ai"
+        },
+        "coreRGName": {
+            "value": "rg-core"
+        },
+        "location": {
+            "value": "eastus"
+        },
+        "locationShort": {
+            "value": "eus"
+        },
+        "subnetNameSpoke5": {
+            "value": "subnet-spoke5"
+        },
+        "subnetNameSpoke6": {
+            "value": "subnet-spoke6"
+        },
+        "subnetNameSpoke0": {
+            "value": "subnet-spoke0"
+        },
+        "vnetName": {
+            "value": "vnet-spoke3-pre-eus-01"
+        },
+        "actionGroupName": {
+            "value": {
+                "name": "Application Insights Smart Detection",
+                "groupShortName": "SmartDetect"
+            }
+        },
+        "agentDevOpsObjectId": {
+            "value": "c2f7b0d5-8a14-4842-8455-6038f2cd2bc8"
+        },
+        "armRoleReceivers": {
+            "value": [
+                {
+                    "name": "Monitoring Contributor",
+                    "roleId": "749f88d5-cbae-40b8-bcfc-e573ddc772fa",
+                    "useCommonAlertSchema": true
+                },
+                {
+                    "name": "Monitoring Reader",
+                    "roleId": "43d0d8ad-25c7-4714-9337-8ba259a9fe05",
+                    "useCommonAlertSchema": true
+                }
+            ]
+        },
+        "TranslationServiceParams": {
+            "value": {
+                "name": "ais-medicaltranslation",
+                "sku": {
+                    "name": "S0"
+                },
+                "kind": "AIServices",
+                "customSubDomainName": "medicaltranslation-ai-services",
+                "publicNetworkAccess": "Disabled"
+            }
+        },
+        "OpenAIParams": {
+            "value": {
+                "name": "oai-medicaltranslation",
+                "sku": {
+                    "name": "S0"
+                },
+                "kind": "OpenAI",
+                "customSubDomainName": "medicaltranslation-openai-services",
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        "modelDeployments": {
+            "value": [
+                {
+                    "name": "gpt-4o",
+                    "sku": {
+                        "name": "DataZoneStandard",
+                        "capacity": 300
+                    },
+                    "properties": {
+                        "model": {
+                            "format": "OpenAI",
+                            "name": "gpt-4o",
+                            "version": "2024-08-06"
+                        },
+                        "versionUpgradeOption": "OnceCurrentVersionExpired"
+                    }
+                },
+                {
+                    "name": "gpt-4o-mini",
+                    "sku": {
+                        "name": "DataZoneStandard",
+                        "capacity": 1000
+                    },
+                    "properties": {
+                        "model": {
+                            "format": "OpenAI",
+                            "name": "gpt-4o-mini",
+                            "version": "2024-07-18"
+                        },
+                        "versionUpgradeOption": "OnceNewDefaultVersionAvailable"
+                    }
+                }
+            ]
+        },
+        "DocumentIntelligenceParams": {
+            "value": {
+                "name": "doci-medicaltranslation",
+                "sku": {
+                    "name": "S0"
+                },
+                "kind": "FormRecognizer",
+                "customSubDomainName": "medicaltranslation-documentintelligence-service",
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        "TextTranslationServiceParams": {
+            "value": {
+                "name": "aitr-aihub",
+                "sku": {
+                    "name": "F0"
+                },
+                "kind": "TextTranslation",
+                "customSubDomainName": "aitr-pre-eus-aihub-open",
+                "publicNetworkAccess": "Enabled"
+            }
+        },
+        "LanguageTranslationParam": {
+            "value": {
+                "name": "ailg-medicaltranslation",
+                "sku": {
+                    "name": "S"
+                },
+                "kind": "TextAnalytics",
+                "customSubDomainName": "ailg-pre-eus-medical-translation",
+                "publicNetworkAccess": "Disabled"
+            }
+        },
+        "WorkspacesParams": {
+            "value": {
+                "name": "aihub-medicaltranslation",
+                "sku": {
+                    "name": "Basic",
+                    "tier": "Basic"
+                },
+                "friendlyName": "AI Hub Medical Translation",
+                "allowRoleAssignment": true,
+                "kind": "Hub",
+                "publicNetworkAccess": "Disabled"
+            }
+        },
+        "ApimServiceParams": {
+            "value": {
+                "name": "apim-mgtai",
+                "sku": {
+                    "name": "Developer",
+                    "capacity": 1
+                },
+                "publisherEmail": "Michael.Herstine@geo-blue.com",
+                "publisherNames": "tbd",
+                "virtualNetworkType": "None",
+                "disableGateway": false,
+                "apiVersionConstraint": {},
+                "publicNetworkAccess": "Enabled",
+                "developerPortalStatus": "Enabled",
+                "releaseChannel": "Default"
+            }
+        },
+        "apis": {
+            "value": [
+                {
+                    "name": "echo-api",
+                    "displayName": "Echo API",
+                    "revision": "1",
+                    "subscriptionRequired": true,
+                    "serviceUrl": "http://echoapi.cloudapp.net/api",
+                    "path": "echo",
+                    "protocols": [
+                        "https"
+                    ],
+                    "subscriptionKeyHeader": "Ocp-Apim-Subscription-Key",
+                    "subscriptionKeyQuery": "subscription-key",
+                    "isCurrent": true
+                }
+            ]
+        },
+        "groups": {
+            "value": [
+                {
+                    "name": "administrators",
+                    "displayName": "Administrators",
+                    "type": "system"
+                },
+                {
+                    "name": "developers",
+                    "displayName": "Developers",
+                    "type": "system"
+                },
+                {
+                    "name": "guests",
+                    "displayName": "Guests",
+                    "type": "system"
+                }
+            ]
+        },
+        "InsightsParams": {
+            "value": [
+                {
+                    "name": "appi-medicaltranslation",
+                    "kind": "web",
+                    "Application_Type": "web",
+                    "Flow_Type": "Redfield",
+                    "Request_Source": "IbizaAIExtension",
+                    "RetentionInDays": 90,
+                    "publicNetworkAccessForIngestion": "Enabled",
+                    "publicNetworkAccessForQuery": "Enabled"
+                },
+                {
+                    "name": "appi-process-medicaltranslation",
+                    "kind": "web",
+                    "Application_Type": "web",
+                    "Flow_Type": "Redfield",
+                    "Request_Source": "IbizaWebAppExtensionCreate",
+                    "RetentionInDays": 90,
+                    "publicNetworkAccessForIngestion": "Enabled",
+                    "publicNetworkAccessForQuery": "Enabled"
+                },
+                {
+                    "name": "appi-func-medicaltranslation",
+                    "kind": "web",
+                    "Application_Type": "web",
+                    "Flow_Type": "Redfield",
+                    "Request_Source": "IbizaWebAppExtensionCreate",
+                    "RetentionInDays": 90,
+                    "publicNetworkAccessForIngestion": "Enabled",
+                    "publicNetworkAccessForQuery": "Enabled"
+                }
+            ]
+        },
+        "appServiceParams": {
+            "value": {
+                "name": "app-medicaltranslation",
+                "identity": "UserAssigned"
+            }
+        },
+        "plans": {
+            "value": [
+                {
+                    "name": "asp-medicaltranslation",
+                    "sku": {
+                        "name": "P1v3",
+                        "tier": "PremiumV3",
+                        "capacity": 1
+                    },
+                    "kind": "linux",
+                    "properties": {
+                        "elasticScaleEnabled": false,
+                        "maximumElasticWorkerCount": 1,
+                        "reserved": true
+                    }
+                },
+                {
+                    "name": "asp-medicaltranslation",
+                    "sku": {
+                        "name": "EP1",
+                        "tier": "ElasticPremium",
+                        "capacity": 1
+                    },
+                    "kind": "elastic",
+                    "properties": {
+                        "elasticScaleEnabled": true,
+                        "maximumElasticWorkerCount": 20,
+                        "reserved": true
+                    }
+                }
+            ]
+        },
+        "containerRegistryParams": {
+            "value": {
+                "name": "acrmedicaltranslation",
+                "sku": "Premium",
+                "adminUserEnabled": false,
+                "networkRuleSet": {
+                    "defaultAction": "Allow"
+                },
+                "policies": {
+                    "exportPolicy": {
+                        "status": "enabled"
+                    }
+                },
+                "encryption": {
+                    "status": "disabled"
+                },
+                "publicNetworkAccess": "Disabled",
+                "zoneRedundancy": "Enabled",
+                "anonymousPullEnabled": false
+            }
+        },
+        "scopeMaps": {
+            "value": [
+                {
+                    "name": "_repositories_admin",
+                    "description": "Can perform all read, write and delete operations on the registry",
+                    "actions": [
+                        "repositories/*/metadata/read",
+                        "repositories/*/metadata/write",
+                        "repositories/*/content/read",
+                        "repositories/*/content/write",
+                        "repositories/*/content/delete"
+                    ]
+                },
+                {
+                    "name": "_repositories_pull",
+                    "description": "Can pull any repository of the registry",
+                    "actions": [
+                        "repositories/*/content/read"
+                    ]
+                },
+                {
+                    "name": "_repositories_pull_metadata_read",
+                    "description": "Can perform all read operations on the registry",
+                    "actions": [
+                        "repositories/*/content/read",
+                        "repositories/*/metadata/read"
+                    ]
+                },
+                {
+                    "name": "_repositories_push",
+                    "description": "Can push to any repository of the registry",
+                    "actions": [
+                        "repositories/*/content/read",
+                        "repositories/*/content/write"
+                    ]
+                },
+                {
+                    "name": "_repositories_push_metadata_write",
+                    "description": "Can perform all read and write operations on the registry",
+                    "actions": [
+                        "repositories/*/metadata/read",
+                        "repositories/*/metadata/write",
+                        "repositories/*/content/read",
+                        "repositories/*/content/write"
+                    ]
+                }
+            ]
+        },
+        "cosmosAccounts": {
+            "value": [
+                {
+                    "name": "cosmos-medicaltranslation",
+                    "kind": "GlobalDocumentDB",
+                    "properties": {
+                        "publicNetworkAccess": "Enabled",
+                        "enableFreeTier": false,
+                        "capacityMode": "Provisioned",
+                        "databaseAccountOfferType": "Standard",
+                        "locations": [
+                            {
+                                "locationName": "East US",
+                                "failoverPriority": 0
+                            },
+                            {
+                                "locationName": "West US",
+                                "failoverPriority": 1
+                            }
+                        ],
+                        "backupPolicy": {
+                            "type": "Periodic",
+                            "periodicModeProperties": {
+                                "backupRetentionIntervalInHours": 8,
+                                "backupStorageRedundancy": "Geo"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "cosmos-originaldocumentpages",
+                    "kind": "GlobalDocumentDB",
+                    "properties": {
+                        "publicNetworkAccess": "Disabled",
+                        "enableFreeTier": false,
+                        "capacityMode": "Serverless",
+                        "databaseAccountOfferType": "Standard",
+                        "locations": [
+                            {
+                                "locationName": "East US",
+                                "failoverPriority": 0
+                            }
+                        ],
+                        "backupPolicy": {
+                            "type": "Periodic",
+                            "periodicModeProperties": {
+                                "backupRetentionIntervalInHours": 8,
+                                "backupStorageRedundancy": "Geo"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "containersDB1": {
+            "value": [
+                {
+                    "name": "DocumentsMetaData",
+                    "partitionKeyPath": "/partitionKey"
+                },
+                {
+                    "name": "DocumentsStatus",
+                    "partitionKeyPath": "/sourceSystemName"
+                },
+                {
+                    "name": "TranslatedDocuments",
+                    "partitionKeyPath": "/sourceSystemName"
+                },
+                {
+                    "name": "TranslationLogs",
+                    "partitionKeyPath": "/sourceSystemName"
+                }
+            ]
+        },
+        "eventGridParams": {
+            "value": {
+                "name": "eg-documentprocessing",
+                "inputSchema": "EventGridSchema",
+                "publicNetworkAccess": "Disabled"
+            }
+        },
+        "functionApps": {
+            "value": [
+                {
+                    "name": "func-medicaltranlation-internal-event",
+                    "linuxFxVersion": "DOTNET-ISOLATED|8.0",
+                    "publicNetworkAccess": "Enabled"
+                },
+                {
+                    "name": "func-medicaltranslationapi",
+                    "linuxFxVersion": "DOTNET-ISOLATED|8.0",
+                    "publicNetworkAccess": "Disabled"
+                },
+                {
+                    "name": "func-process-document-medicaltranslation",
+                    "linuxFxVersion": "PYTHON|3.12",
+                    "publicNetworkAccess": "Disabled"
+                },
+                {
+                    "name": "func-process-medicaltranslation-internal-event",
+                    "linuxFxVersion": "PYTHON|3.12",
+                    "publicNetworkAccess": "Enabled"
+                }
+            ]
+        },
+        "webConfigs": {
+            "value": [
+                {
+                    "parentIndex": 0,
+                    "ipSecurityRestrictions": [
+                        {
+                            "ipAddress": "AzureEventGrid",
+                            "action": "Allow",
+                            "tag": "ServiceTag",
+                            "priority": 300,
+                            "name": "EventGrid"
+                        },
+                        {
+                            "ipAddress": "Any",
+                            "action": "Deny",
+                            "priority": 2147483647,
+                            "name": "Deny all",
+                            "description": "Deny all access"
+                        }
+                    ],
+                    "ipSecurityRestrictionsDefaultAction": "Deny"
+                },
+                {
+                    "parentIndex": 1,
+                    "ipSecurityRestrictions": [
+                        {
+                            "ipAddress": "Any",
+                            "action": "Allow",
+                            "priority": 2147483647,
+                            "name": "Allow all",
+                            "description": "Allow all access"
+                        }
+                    ],
+                    "ipSecurityRestrictionsDefaultAction": "Allow"
+                },
+                {
+                    "parentIndex": 2,
+                    "ipSecurityRestrictions": [
+                        {
+                            "ipAddress": "Any",
+                            "action": "Allow",
+                            "priority": 2147483647,
+                            "name": "Allow all",
+                            "description": "Allow all access"
+                        }
+                    ],
+                    "ipSecurityRestrictionsDefaultAction": "Allow"
+                },
+                {
+                    "parentIndex": 3,
+                    "ipSecurityRestrictions": [
+                        {
+                            "ipAddress": "AzureEventGrid",
+                            "action": "Allow",
+                            "tag": "ServiceTag",
+                            "priority": 300,
+                            "name": "EventGrid"
+                        },
+                        {
+                            "ipAddress": "Any",
+                            "action": "Deny",
+                            "priority": 2147483647,
+                            "name": "Deny all",
+                            "description": "Deny all access"
+                        }
+                    ],
+                    "ipSecurityRestrictionsDefaultAction": "Deny"
+                }
+            ]
+        },
+        "functions": {
+            "value": [
+                {
+                    "name": "HandleDocumentReceived",
+                    "parentIndex": 0,
+                    "entryPoint": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.Functions.HandleDocumentReceived.Run",
+                    "scriptFile": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.dll",
+                    "language": "dotnet-isolated",
+                    "bindings": [
+                        {
+                            "name": "eventGridEvent",
+                            "type": "eventGridTrigger",
+                            "direction": "In",
+                            "cardinality": "One"
+                        }
+                    ]
+                },
+                {
+                    "name": "PushTranslationStatus",
+                    "parentIndex": 0,
+                    "entryPoint": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.Functions.PushTranslationStatus.Run",
+                    "scriptFile": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.dll",
+                    "language": "dotnet-isolated",
+                    "bindings": [
+                        {
+                            "name": "eventGridEvent",
+                            "type": "eventGridTrigger",
+                            "direction": "In",
+                            "cardinality": "One"
+                        }
+                    ]
+                },
+                {
+                    "name": "TranslatedDocumentsFunction",
+                    "parentIndex": 0,
+                    "entryPoint": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.Functions.TranslatedDocumentsFunction.Run",
+                    "scriptFile": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.dll",
+                    "language": "dotnet-isolated",
+                    "bindings": [
+                        {
+                            "name": "eventGridEvent",
+                            "type": "eventGridTrigger",
+                            "direction": "In",
+                            "cardinality": "One"
+                        }
+                    ]
+                },
+                {
+                    "name": "UpdateDocumentStatus",
+                    "parentIndex": 0,
+                    "entryPoint": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.Functions.UpdateDocumentStatus.Run",
+                    "scriptFile": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.dll",
+                    "language": "dotnet-isolated",
+                    "bindings": [
+                        {
+                            "name": "eventGridEvent",
+                            "type": "eventGridTrigger",
+                            "direction": "In",
+                            "cardinality": "One"
+                        }
+                    ]
+                },
+                {
+                    "name": "WriteDocumentMetadata",
+                    "parentIndex": 0,
+                    "entryPoint": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.Functions.WriteDocumentMetadata.Run",
+                    "scriptFile": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.dll",
+                    "language": "dotnet-isolated",
+                    "bindings": [
+                        {
+                            "name": "eventGridEvent",
+                            "type": "eventGridTrigger",
+                            "direction": "In",
+                            "cardinality": "One"
+                        }
+                    ]
+                },
+                {
+                    "name": "WriteTranslationLog",
+                    "parentIndex": 0,
+                    "entryPoint": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.Functions.WriteTranslationLog.Run",
+                    "scriptFile": "GeoBlue.Azure.DocumentTranslation.EventGridTriggers.dll",
+                    "language": "dotnet-isolated",
+                    "bindings": [
+                        {
+                            "name": "eventGridEvent",
+                            "type": "eventGridTrigger",
+                            "direction": "In",
+                            "cardinality": "One"
+                        }
+                    ]
+                },
+                {
+                    "name": "DownloadDocument",
+                    "parentIndex": 1,
+                    "entryPoint": "GeoBlue.Azure.DocumentTranslation.HttpTriggers.Functions.DownloadDocument.Run",
+                    "scriptFile": "GeoBlue.Azure.DocumentTranslation.HttpTriggers.dll",
+                    "language": "dotnet-isolated",
+                    "bindings": [
+                        {
+                            "name": "req",
+                            "type": "httpTrigger",
+                            "direction": "In",
+                            "authLevel": "Function",
+                            "methods": [
+                                "get"
+                            ],
+                            "route": "translation/{sourceSystemName}/{translationId}"
+                        },
+                        {
+                            "name": "$return",
+                            "type": "http",
+                            "direction": "Out"
+                        }
+                    ]
+                },
+                {
+                    "name": "SubmitDocument",
+                    "parentIndex": 1,
+                    "entryPoint": "GeoBlue.Azure.DocumentTranslation.HttpTriggers.Functions.SubmitDocument.Run",
+                    "scriptFile": "GeoBlue.Azure.DocumentTranslation.HttpTriggers.dll",
+                    "language": "dotnet-isolated",
+                    "bindings": [
+                        {
+                            "name": "req",
+                            "type": "httpTrigger",
+                            "direction": "In",
+                            "authLevel": "Function",
+                            "methods": [
+                                "post"
+                            ],
+                            "route": "translation/{sourceSystemName}/{sourceSystemId}"
+                        },
+                        {
+                            "name": "$return",
+                            "type": "http",
+                            "direction": "Out"
+                        }
+                    ]
+                },
+                {
+                    "name": "blobCreated_PureEventGridTrigger",
+                    "parentIndex": 3,
+                    "entryPoint": "blobCreated_PureEventGridTrigger",
+                    "scriptFile": "function_app.py",
+                    "language": "python",
+                    "bindings": [
+                        {
+                            "direction": "IN",
+                            "type": "eventGridTrigger",
+                            "name": "sysGridEventArgs",
+                            "eventGridEvent": "Microsoft.Storage.BlobCreated",
+                            "connection": "DocumentProcessingEventGridConnection",
+                            "source": "DocumentProcessingEventGrid",
+                            "subjectBeginsWith": "/blobServices/default/containers/stdocumentsaipreeus-container/blobs/stdocumentsaipreeus"
+                        }
+                    ]
+                },
+                {
+                    "name": "blobCreated_StandardBlobTrigger",
+                    "parentIndex": 3,
+                    "entryPoint": "blobCreated_StandardBlobTrigger",
+                    "scriptFile": "function_app.py",
+                    "language": "python",
+                    "bindings": [
+                        {
+                            "direction": "IN",
+                            "type": "blobTrigger",
+                            "name": "blobInputStream",
+                            "path": "stdocumentsaipreeus01-container/{name}",
+                            "connection": "AzureWebJobsStorage"
+                        }
+                    ]
+                }
+            ]
+        },
+        "keyVaultParams": {
+            "value": {
+                "name": "kvtranslation",
+                "sku": {
+                    "family": "A",
+                    "name": "standard"
+                },
+                "tenantId": "[subscription().tenantId]"
+            }
+        },
+        "logAnalyticsWorkspaceParams": {
+            "value": {
+                "workspaceName": "log-medicaltranslaion",
+                "skuName": "pergb2018",
+                "retentionInDays": 30,
+                "dailyQuotaGb": -1,
+                "publicNetworkAccessForIngestion": "Enabled",
+                "publicNetworkAccessForQuery": "Enabled"
+            }
+        },
+        "ManagedIdentityName": {
+            "value": "id-app-medicaltranslation"
+        },
+        "networkSecurityGroupName": {
+            "value": "nsg-privatebuildagent"
+        },
+        "privateEndpointsParams": {
+            "value": {
+                "endpoints": [
+                    {
+                        "name": "privateendpoint-pep-acrmedicaltranslation",
+                        "dnsZoneName": "privatelink.azurecr.io",
+                        "privateEndpointName": "pep-acrmedicaltranslation",
+                        "privateIpName": "acrPrivateIp",
+                        "privateIPAddressEp": "10.6.5.19",
+                        "privateIPAddressEpAdditional": "10.6.5.20",
+                        "resourceType": "ContainerRegistry/registries",
+                        "resourceName": "acrmedicaltranslation",
+                        "groupId": "registry",
+                        "memberName": "registry",
+                        "customDnsConfigs": [
+                            {
+                                "fqdn": "acrpreeusgeo.eastus.data.azurecr.io",
+                                "ipAddresses": [
+                                    "10.6.5.19"
+                                ]
+                            },
+                            {
+                                "fqdn": "acrpreeusgeo.azurecr.io",
+                                "ipAddresses": [
+                                    "10.6.5.20"
+                                ]
+                            }
+                        ],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-egt-docprc-pre-ai",
+                        "dnsZoneName": "privatelink.eventgrid.azure.net",
+                        "privateEndpointName": "pep-eg-documentprocessing",
+                        "privateIpName": "eventGridPrivateIp",
+                        "privateIPAddressEp": "10.6.5.21",
+                        "resourceType": "EventGrid/topics",
+                        "resourceName": "eg-documentprocessing",
+                        "groupId": "topic",
+                        "memberName": "topic",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-aitr-aihub",
+                        "dnsZoneName": "privatelink.cognitiveservices.azure.com",
+                        "privateEndpointName": "pep-aitr-aihub",
+                        "privateIpName": "aitrPrivateIp",
+                        "privateIPAddressEp": "10.6.5.26",
+                        "resourceType": "CognitiveServices/accounts",
+                        "resourceName": "aitr-aihub",
+                        "groupId": "account",
+                        "memberName": "default",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-func-process-document-medicaltranslation",
+                        "dnsZoneName": "privatelink.azurewebsites.net",
+                        "privateEndpointName": "pep-func-process-document-medicaltranslation",
+                        "privateIpName": "funcProcessFilePrivateIp",
+                        "privateIPAddressEp": "10.6.5.23",
+                        "resourceType": "Web/sites",
+                        "resourceName": "func-process-document-medicaltranslation",
+                        "groupId": "sites",
+                        "memberName": "sites",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-ais-medicaltranslation",
+                        "dnsZoneName": "privatelink.cognitiveservices.azure.com",
+                        "privateEndpointName": "pep-ais-medicaltranslation",
+                        "privateIpName": "medicalTranslationPrivateIp",
+                        "privateIPAddressEp": "10.6.5.12",
+                        "privateIPAddressEpAdditional": "10.6.5.13",
+                        "privateIPAddressEpThird": "10.6.5.14",
+                        "resourceType": "CognitiveServices/accounts",
+                        "resourceName": "ais-medicaltranslation",
+                        "groupId": "account",
+                        "memberName": "account",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-kv-medicaltranslation",
+                        "dnsZoneName": "privatelink.vaultcore.azure.net",
+                        "privateEndpointName": "pep-kv-medicaltranslation",
+                        "privateIpName": "medicalTranslationKVPrivateIp",
+                        "privateIPAddressEp": "10.6.5.9",
+                        "resourceType": "KeyVault/vaults",
+                        "resourceName": "kvtranslation",
+                        "groupId": "vault",
+                        "memberName": "default",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-core"
+                    },
+                    {
+                        "name": "privateendpoint-pep-aihub-medicaltranslation",
+                        "dnsZoneName": "privatelink.azureml.ms",
+                        "privateEndpointName": "pep-aihub-medicaltranslation",
+                        "privateIpName": "medicalTranslationHubPrivateIp",
+                        "privateIPAddressEp": "10.6.5.4",
+                        "privateIPAddressEpAdditional": "10.6.5.5",
+                        "privateIPAddressEpThird": "10.6.5.6",
+                        "privateIPAddressEpFourth": "10.6.5.7",
+                        "resourceType": "MachineLearningServices/workspaces",
+                        "resourceName": "aihub-medicaltranslation",
+                        "groupId": "amlworkspace",
+                        "memberName": "amlworkspace",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-app-medicaltranslation",
+                        "dnsZoneName": "privatelink.azurewebsites.net",
+                        "privateEndpointName": "pep-app-medicaltranslation",
+                        "privateIpName": "appPrivateIp",
+                        "privateIPAddressEp": "10.6.5.25",
+                        "resourceType": "Web/sites",
+                        "resourceName": "app-medicaltranslation",
+                        "groupId": "sites",
+                        "memberName": "sites",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-ai-pre-medicalTranslation-queues",
+                        "dnsZoneName": "privatelink.queue.core.windows.net",
+                        "privateEndpointName": "pep-st-medicaltranslation-queues",
+                        "privateIpName": "medicalTranslationQueuesPrivateIp",
+                        "privateIPAddressEp": "10.6.5.22",
+                        "resourceType": "Storage/queueservices",
+                        "resourceName": "stdocumentsai",
+                        "groupId": "queue",
+                        "memberName": "queue",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-ailg-medicaltranslation",
+                        "dnsZoneName": "privatelink.cognitiveservices.azure.com",
+                        "privateEndpointName": "pep-ailg-medicaltranslation",
+                        "privateIpName": "ailgPrivateIp",
+                        "privateIPAddressEp": "10.6.5.15",
+                        "resourceType": "CognitiveServices/accounts",
+                        "resourceName": "ailg-medicaltranslation",
+                        "groupId": "account",
+                        "memberName": "default",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-cosmos-medicaltranslation",
+                        "dnsZoneName": "privatelink.documents.azure.com",
+                        "privateEndpointName": "pep-cosmos-medicaltranslation",
+                        "privateIpName": "cosmosPrivateIp",
+                        "privateIPAddressEp": "10.6.5.16",
+                        "privateIPAddressEpAdditional": "10.6.5.17",
+                        "privateIPAddressEpThird": "10.6.5.18",
+                        "resourceType": "DocumentDB/databaseAccounts",
+                        "resourceName": "cosmos-medicaltranslation",
+                        "groupId": "Sql",
+                        "memberName": "cosmos-medicaltranslation",
+                        "firstFQDN": "eastus",
+                        "secondFQDN": "westus",
+                        "customDnsConfigs": [
+                            {
+                                "fqdn": "cosmos-medicaltranslation-pre-eus.documents.azure.com",
+                                "ipAddresses": [
+                                    "10.6.5.16"
+                                ]
+                            },
+                            {
+                                "fqdn": "cosmos-medicaltranslation-pre-eus-eastus.documents.azure.com",
+                                "ipAddresses": [
+                                    "10.6.5.17"
+                                ]
+                            },
+                            {
+                                "fqdn": "cosmos-medicaltranslation-pre-eus-westus.documents.azure.com",
+                                "ipAddresses": [
+                                    "10.6.5.18"
+                                ]
+                            }
+                        ],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-cosmos-originaldocumentpages",
+                        "dnsZoneName": "privatelink.documents.azure.com",
+                        "privateEndpointName": "pep-cosmos-originaldocumentpages",
+                        "privateIpName": "cosmosPrivateIp",
+                        "privateIPAddressEp": "10.6.5.27",
+                        "privateIPAddressEpAdditional": "10.6.5.28",
+                        "privateIPAddressEpThird": "10.6.5.29",
+                        "resourceType": "DocumentDB/databaseAccounts",
+                        "resourceName": "cosmos-originaldocumentpages",
+                        "groupId": "Sql",
+                        "memberName": "cosmos-originaldocumentpages",
+                        "firstFQDN": "eastus",
+                        "secondFQDN": "westus",
+                        "customDnsConfigs": [
+                            {
+                                "fqdn": "cosmos-originaldocumentpages-pre-eus.documents.azure.com",
+                                "ipAddresses": [
+                                    "10.6.5.27"
+                                ]
+                            },
+                            {
+                                "fqdn": "cosmos-originaldocumentpages-pre-eus-eastus.documents.azure.com",
+                                "ipAddresses": [
+                                    "10.6.5.28"
+                                ]
+                            },
+                            {
+                                "fqdn": "cosmos-originaldocumentpages-pre-eus-westus.documents.azure.com",
+                                "ipAddresses": [
+                                    "10.6.5.29"
+                                ]
+                            }
+                        ],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-func-medicaltranslationapi",
+                        "dnsZoneName": "privatelink.azurewebsites.net",
+                        "privateEndpointName": "pep-func-medicaltranslationapi",
+                        "privateIpName": "funcMedicalTranslationApiPrivateIp",
+                        "privateIPAddressEp": "10.6.5.24",
+                        "resourceType": "Web/sites",
+                        "resourceName": "func-medicaltranslationapi",
+                        "groupId": "sites",
+                        "memberName": "sites",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-ai-pre-medicalTranslation-fileshare",
+                        "dnsZoneName": "privatelink.file.core.windows.net",
+                        "privateEndpointName": "pep-st-medicaltranslation-fileshare",
+                        "privateIpName": "medicalTranslationFileSharePrivateIp",
+                        "privateIPAddressEp": "10.6.5.10",
+                        "resourceType": "Storage/fileservices",
+                        "resourceName": "stdocumentsai",
+                        "groupId": "file",
+                        "memberName": "file",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-ai-pre-medicalTranslation-blobstorage",
+                        "dnsZoneName": "privatelink.blob.core.windows.net",
+                        "privateEndpointName": "pep-st-medicaltranslation-blobstorage",
+                        "privateIpName": "medicalTranslationBlobStoragePrivateIp",
+                        "privateIPAddressEp": "10.6.5.8",
+                        "resourceType": "Storage/blobservices",
+                        "resourceName": "stdocumentsai",
+                        "groupId": "blob",
+                        "memberName": "blob",
+                        "customDnsConfigs": [],
+                        "resourceGroupName": "rg-ai"
+                    },
+                    {
+                        "name": "privateendpoint-pep-ai-api-mgt",
+                        "dnsZoneName": "privatelink.azure-api.net",
+                        "privateEndpointName": "pep-apim-mgtai",
+                        "privateIpName": "apimPrivateIp",
+                        "privateIPAddressEp": "10.6.5.11",
+                        "resourceType": "ApiManagement/service",
+                        "resourceName": "apim-mgtai",
+                        "groupId": "gateway",
+                        "memberName": "gateway",
+                        "customDnsConfigs": [
+                            {
+                                "fqdn": "api-mgt-ai-pre.azure-api.net",
+                                "ipAddresses": [
+                                    "10.6.5.11"
+                                ]
+                            }
+                        ],
+                        "resourceGroupName": "rg-ai"
+                    }
+                ]
+            }
+        },
+        "publicIpParams": {
+            "value": [
+                {
+                    "name": "pip-privatedevopsagent",
+                    "zone": "1"
+                },
+                {
+                    "name": "pip-privatebuildagent",
+                    "zone": "2"
+                },
+                {
+                    "name": "pip-privatebuildagent",
+                    "zone": "1"
+                }
+            ]
+        },
+        "storageAccountParams": {
+            "value": {
+                "name": "stdocumentsai",
+                "sku": {
+                    "name": "Standard_LRS"
+                },
+                "kind": "StorageV2",
+                "publicNetworkAccess": "Enabled",
+                "accessTier": "Hot"
+            }
+        },
+        "virtualMachineParams": {
+            "value": {
+                "name": "vm-privatebuildagent",
+                "adminUsername": "azurpregeo",
+                "size": "Standard_D2s_v3",
+                "zones": "2",
+                "imageSku": "2022-datacenter-azure-edition",
+                "storageAccountType": "Premium_LRS",
+                "privateIpAddress": "10.6.0.6"
+            }
+        },
+        "dataDisks_list": {
+            "value": {
+                "dataDisk1": {
+                    "size": "127"
+                }
+            }
+        }
+    }
+}
